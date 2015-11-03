@@ -74,6 +74,7 @@ class Article{
 	
 	//sort bids by date
 	public function sortBids(){
+		echo "sort";
 		usort($this->bids, array($this, "compareByDate")); 
 		return $this->bids;
 	}

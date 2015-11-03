@@ -4,49 +4,24 @@ include_once "User.php";
 include_once "Article.php";
 include_once "Bid.php";
 
-//fill in data
+$articles = array();
+
+//article - 1 
 $user1 = new User("Bert Rose", "rose@phoroneus.com", "female");
 $user2 = new User("Rush Tommy", "rush@chronos.com", "male");
 
-$article = new Article("Gold Watch", 10, "New with tags: A brand-new, unused, and unworn item (including handmade items) in the original packaging
+$article1 = new Article("Gold Watch", 10, "New with tags: A brand-new, unused, and unworn item (including handmade items) in the original packaging
     (such as the original box or bag) and/or with the original tags attached", '2015-10-26 15:45');
 
 $bid1 = new Bid($user1, 12, '2015-10-25 12:22');
 $bid2 = new Bid($user2, 13, '2014-10-26 9:13');
 $bid3 = new Bid($user1, 15.50, '2015-10-26 15:00');
 
-$article->addBid($bid1);
-$article->addBid($bid2);
-$article->addBid($bid3);
-$bids = $article->sortBids();
+$article1->addBid($bid1);
+$article1->addBid($bid2);
+$article1->addBid($bid3);
 
-//create empty variables for checking if auction ended
-$sold = '';
-$i = 0;
-	
-//sort and print data	
-echo "<dl>";
-echo "<dt>".$article->getTitle()."</dt>
-    <dd><p>".$article->getAnotation()."</p>
-    <p>Price: ".$article->getPrice()."&euro;</p>
-    <p>Ended ".$article->getDate()."</p>
-    <p><ul>";
-	foreach ($bids as $bid) {
-		
-		//check if auction ended
-		if ($article->getDateAsTimestamp() < time() && $i == 0){
-			$sold = 'Sold';
-			$i = 1;
-		}else{
-			$sold = '';
-		}
-		
-		echo "- ".$bid->getBidder()->getName()."; ".$bid->getValue()."€; ".$bid->getDate()."; ".$sold."<br>";
-	}  
-echo "</ul></p>
-    </dd>";
-	
-//fill in data
+//article - 2 
 $user3 = new User("Miguel Howard", "howard@aurigae.com", "male");
 
 $article2 = new Article("Linen Jacket", 135, "It has a smooth chalk stripe pattern which gives the suit a refined look. The 6 buttons of his double
@@ -60,30 +35,62 @@ $bid5 = new Bid($user2, 155, '2014-10-29 9:13');
 $article2->addBid($bid4);
 $article2->addBid($bid5);
 
-$bids2 = $article2->sortBids();
+//added articles - 1
+$article3 = new Article("Linen Pants", 215, "Extra line much pants such wow.", "2015-10-30 19:00");
+
+$bid6 = new Bid($user1, 280, '2015-10-25 11:33');
+$bid7 = new Bid($user2, 270, '2014-10-30 6:15');
+
+$article3->addBid($bid6);
+$article3->addBid($bid7);
+
+//added articles - 2
+$article4 = new Article("Hulk's Pants", 235, "Indestructible pants for every occasion. ", "2015-11-02 12:00");
+
+$bid8 = new Bid($user3, 750, '2015-11-01 12:22');
+$bid9 = new Bid($user1, 600, '2014-11-02 9:13');
+
+$article4->addBid($bid8);
+$article4->addBid($bid9);
+
+//added articles - 3
+$article5 = new Article("Batman's costume for helloween", 250, "MOst unique costume for helloween.", "2015-10-29 12:00");
+
+$bid10 = new Bid($user2, 521, '2015-10-25 12:22');
+$bid11 = new Bid($user3, 250, '2014-10-29 10:13');
+$bid12 = new Bid($user2, 155, '2014-10-29 9:13');
+
+$article5->addBid($bid10);
+$article5->addBid($bid11);
+$article5->addBid($bid12);
+array_push($articles, $article1, $article2, $article3, $article4, $article5);
 
 //reset variables for checking if auction ended
-$sold = '';
-$i = 0;
 
-//sort and print data	
-echo "<dl>";
-echo "<dt>".$article2->getTitle()."</dt>
-    <dd><p>".$article2->getAnotation()."</p>
-    <p>Price: ".$article2->getPrice()."&euro;</p>
-    <p>Ended ".$article2->getDate()."</p>
-    <p><ul>";
-	foreach ($bids2 as $bid) {
-		
-		//check if auction ended
-		if ($article2->getDateAsTimestamp() < time() && $i == 0){
-			$sold = 'Sold';
-			$i = 1;
-		}else{
-			$sold = '';
-		}
-		
-		echo "- ". $bid->getBidder()->getName()."; ".$bid->getValue()."€; ".$bid->getDate()."; ".$sold."<br>";
-	}  
-echo "</ul></p>
-    </dd>";
+foreach ($articles as $article) {	
+	$bids = $article->sortBids();
+	$sold = '';
+	$i = 0;
+	
+	//sort and print data	
+	echo "<dl>";
+	echo "<dt>".$article->getTitle()."</dt>
+		<dd><p>".$article->getAnotation()."</p>
+		<p>Price: ".$article->getPrice()."&euro;</p>
+		<p>Ended ".$article->getDate()."</p>
+		<p><ul>";
+		foreach ($bids as $bid) {
+			
+			//check if auction ended
+			if ($article->getDateAsTimestamp() < time() && $i == 0){
+				$sold = 'Sold';
+				$i = 1;
+			}else{
+				$sold = '';
+			}
+			
+			echo "- ".$bid->getBidder()->getName()."; ".$bid->getValue()."€; ".$bid->getDate()."; ".$sold."<br>";
+		}  
+	echo "</ul></p>
+	</dd></dl>";
+}
