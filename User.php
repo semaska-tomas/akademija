@@ -1,5 +1,7 @@
 <?php 
 
+namespace akademija;
+
 class User{
 	protected $name;
 	protected $mail;

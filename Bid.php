@@ -1,5 +1,7 @@
 <?php 
 
+namespace akademija;
+
 class Bid{
 	protected $bidder;
 	protected $value;

@@ -1,5 +1,7 @@
 <?php 
 
+namespace akademija;
+
 class Article{
 	protected $title; 
 	protected $price;
@@ -55,11 +57,7 @@ class Article{
 	}
 	
 	public function addBid(Bid $bid){
-		if ($this->state){
-			$this->bids[] = $bid;
-		}else{
-			//auction ended, throw exception or send message to user
-		}
+		$this->bids[] = $bid;
 	}
 	
 	public function getBids(){
