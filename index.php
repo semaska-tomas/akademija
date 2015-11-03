@@ -1,10 +1,10 @@
 <?php
 
+namespace akademija;
+
 include_once "User.php";
 include_once "Article.php";
 include_once "Bid.php";
-
-namespace akademija;
 
 $articles = [];
 
