@@ -6,7 +6,7 @@ include_once "Bid.php";
 
 namespace akademija;
 
-$articles = array();
+$articles = [];
 
 //article - 1 
 $user1 = new User("Bert Rose", "rose@phoroneus.com", "female");
